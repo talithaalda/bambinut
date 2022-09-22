@@ -9,7 +9,7 @@ class listpage extends StatelessWidget {
   Widget build(BuildContext context) {
     
       return Scaffold(
-        backgroundColor: Color.fromARGB(255, 5, 58, 107),
+        backgroundColor: Color.fromARGB(255, 135, 76, 98),
         // appBar: AppBar(
         // centerTitle: true,
         //   title: Text("List"),
@@ -18,8 +18,9 @@ class listpage extends StatelessWidget {
           onPressed:(){
             print("button add");
           },
-          child: Icon(Icons.add
+          child: Icon(Icons.add,color: Colors.black,
           ),
+          backgroundColor: Color.fromARGB(255, 242, 211, 136),
           ),
         body: 
         
@@ -30,7 +31,7 @@ class listpage extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all( 
                 Radius.circular(12)),
-                color: Color.fromARGB(255, 158, 195, 243),
+                color: Color.fromARGB(255, 242, 211, 136),
                 ),
               child: ListTile(
                 contentPadding: EdgeInsets.all(10),
@@ -44,7 +45,7 @@ class listpage extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all( 
                 Radius.circular(12)),
-                color: Color.fromARGB(255, 158, 195, 243),
+                color: Color.fromARGB(255, 242, 211, 136),
                 ),
               child: ListTile(
                 contentPadding: EdgeInsets.all(10),
@@ -58,7 +59,7 @@ class listpage extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all( 
                 Radius.circular(12)),
-                color: Color.fromARGB(255, 158, 195, 243),
+                color: Color.fromARGB(255, 242, 211, 136),
                 ),
               child: ListTile(
                 contentPadding: EdgeInsets.all(10),
@@ -72,7 +73,7 @@ class listpage extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all( 
                 Radius.circular(12)),
-                color: Color.fromARGB(255, 158, 195, 243),
+                color: Color.fromARGB(255, 242, 211, 136),
                 ),
               child: ListTile(
                 contentPadding: EdgeInsets.all(10),

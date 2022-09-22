@@ -3,9 +3,13 @@ import 'package:testing/login.dart';
 import 'package:testing/pages/home.dart';
 import 'package:testing/pages/insight.dart';
 import 'package:testing/pages/list.dart';
+import 'package:testing/pages/menu.dart';
 import 'package:testing/pages/profile.dart';
 import 'package:intl/intl.dart';
-
+import 'package:testing/pages/splashscreen.dart';
+import 'package:testing/pages/welcome.dart';
+import 'package:testing/login.dart';
+import 'package:testing/sign.dart';
 void main() {
   runApp(MyApp());
 }
@@ -16,67 +20,28 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int counter = 0;
-
-  int pilihanbottom =  0;
-
-  final List<Widget> children =
-  [
-    homepage(),
-    insight(),
-    listpage(),
-    profile()
-  ];
-
-  void onTappedItem(int index) {
-    setState(() {
-      pilihanbottom = index;
-    });
-  }
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Home',
         theme: ThemeData(
-          primarySwatch: Colors.orange,
+          appBarTheme:AppBarTheme(
+            color: Color.fromARGB(255, 242, 211, 136),
+            titleTextStyle: TextStyle(
+              color: Colors.black,
+              fontSize: 19,
+              fontWeight: FontWeight.w600
+            )),
         ),
-        home: Scaffold(
-          body: Center(child: 
-          children.elementAt(pilihanbottom)
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-          // currentIndex: 4,
-          backgroundColor: Colors.orange,
-          type: BottomNavigationBarType.fixed,
-          selectedItemColor: Color.fromARGB(255, 252, 252, 252),
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: "Home",
-              ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.food_bank),
-              label: "Insight",
-              ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.list),
-              label: "Lists",
-              ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: "Profile",
-              ),
-        ],
-        currentIndex: pilihanbottom,
-        selectedIconTheme: IconThemeData(color: Colors.white),
-        onTap: onTappedItem),
-        ),
+        home: splash(),
         routes: {
           homepage.nameRoute :(context) => homepage(),
           listpage.nameRoute :(context) => listpage(),
+          loginpage.nameRoute :(context) => loginpage(),
+          signuppage.nameRoute :(context) => signuppage(),
+          menu.nameRoute :(context) => menu()
+
         }
    );
   }

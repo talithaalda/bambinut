@@ -64,9 +64,10 @@ class _insightState extends State<insight> {
   }
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 5, 58, 107),
+      backgroundColor: Color.fromARGB(255, 135, 76, 98),
        appBar: AppBar(
-          title: Center(child: Text("Bar Chart")),
+          title: Center(child: Text("Insight")),
+          automaticallyImplyLeading: false,
         ),
         body: ListView(
           children: [
@@ -75,7 +76,7 @@ class _insightState extends State<insight> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all( 
                 Radius.circular(12)),
-                color: Color.fromARGB(255, 158, 195, 243),
+                color: Color.fromARGB(255, 167, 210, 203),
                 ),
               margin: EdgeInsets.all(8.0),
               padding: EdgeInsets.all(10.0),
@@ -86,7 +87,7 @@ class _insightState extends State<insight> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all( 
                 Radius.circular(12),),
-                color: Color.fromARGB(255, 158, 195, 243),
+                color: Color.fromARGB(255, 167, 210, 203),
                 image: DecorationImage(image: AssetImage("assets/images/milk.jpg"), fit: BoxFit.cover,)
                 ),
               margin: EdgeInsets.all(8.0),
@@ -96,7 +97,7 @@ class _insightState extends State<insight> {
                 style: TextStyle(
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 5, 58, 107))
+                  color: Color.fromARGB(255, 135, 76, 98))
                   ),
                   ),
             ),
@@ -105,7 +106,7 @@ class _insightState extends State<insight> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all( 
                 Radius.circular(12)),
-                color: Color.fromARGB(255, 158, 195, 243),
+                color: Color.fromARGB(255, 167, 210, 203),
                 ),
               margin: EdgeInsets.all(8.0),
               padding: EdgeInsets.all(20.0),
@@ -118,9 +119,9 @@ class _insightState extends State<insight> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                    CircleAvatar(child: Text("1",style: TextStyle(fontSize: 25),),radius: 35,backgroundColor:Color.fromARGB(255, 5, 58, 107)),
-                    CircleAvatar(child: Text("0",style: TextStyle(fontSize: 25)),radius: 35,backgroundColor:Color.fromARGB(255, 5, 58, 107)),
-                    CircleAvatar(child: Text("0",style: TextStyle(fontSize: 25)),radius: 35,backgroundColor:Color.fromARGB(255, 5, 58, 107))
+                    CircleAvatar(child: Text("1",style: TextStyle(fontSize: 25),),radius: 35,backgroundColor:Color.fromARGB(255, 135, 76, 98)),
+                    CircleAvatar(child: Text("0",style: TextStyle(fontSize: 25)),radius: 35,backgroundColor:Color.fromARGB(255, 135, 76, 98)),
+                    CircleAvatar(child: Text("0",style: TextStyle(fontSize: 25)),radius: 35,backgroundColor:Color.fromARGB(255, 135, 76, 98))
                   ],),
                   SizedBox(height: 5),
                   Row(

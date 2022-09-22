@@ -63,6 +63,28 @@ flutter:
   assets:
     - assets/images/milk.jpg
     - assets/images/baby.jpg
+    - assets/images/chart.png
+    - assets/images/beef.png
+    - assets/images/bread.png
+    - assets/images/banana.png
+    - assets/images/broccoli.png
+    - assets/images/cherries.png
+    - assets/images/kiwi.png
+    - assets/images/mango.png
+    - assets/images/noodles.png
+    - assets/images/potato.png
+    - assets/images/chicken-leg.png
+    - assets/images/milk.png
+    - assets/images/pumpkin.png
+    - assets/images/raspberry.png
+    - assets/images/salmon.png
+    - assets/images/spinach.png
+    - assets/images/shrimp.png
+    - assets/images/apple.png
+    - assets/images/apricot.png
+    - assets/images/tofu.png
+    - assets/images/yogurt.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
