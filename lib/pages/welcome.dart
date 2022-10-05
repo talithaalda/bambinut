@@ -17,7 +17,7 @@ class welcome extends StatelessWidget {
       child: Column(
           children: [
             Container(
-              padding: EdgeInsets.only(top: 200),
+              padding: EdgeInsets.only(top: 100),
               child: Text(
                 "Welcome to Bambinut",
                 style: TextStyle(
@@ -28,9 +28,9 @@ class welcome extends StatelessWidget {
             ),
             SizedBox(height: 50,),
             Image.asset(
-              "assets/images/shrimp.png",
-              width: 150,
-              height: 150,
+              "assets/images/logo.png",
+              width: 300,
+              height: 300,
             ),
             SizedBox(height: 50,),
             Material(

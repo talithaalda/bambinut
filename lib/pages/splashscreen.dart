@@ -33,17 +33,10 @@ class _splashState extends State<splash> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              "assets/images/shrimp.png",
-              width: 70,
-              height: 70,
+              "assets/images/logo.png",
+              width: 300,
+              height: 300,
             ),
-            Text(
-              "Bambinut",
-              style: TextStyle(
-                  fontSize: 20,
-                  color: Color.fromARGB(255, 5, 58, 107),
-                  fontWeight: FontWeight.bold),
-            )
           ],
         ),
       ),

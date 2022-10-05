@@ -168,18 +168,43 @@ class _profileState extends State<profile> {
                     onTap: () {
                       
                     },
-                    borderRadius: BorderRadius.all(
-                            Radius.circular(50)
-                  ),
                   ),
                   color: Color.fromARGB(255, 167, 210, 203),
                   borderRadius: BorderRadius.all(
                             Radius.circular(50)
                   ),
                 ),
+                
             ],
           ),
         ),
+      ),
+      floatingActionButton: Material(
+        child: InkWell(
+          onTap: () {
+              },
+          borderRadius: BorderRadius.all(
+                              Radius.circular(50)
+                    ),
+          splashColor: Colors.white,
+          child: Container(
+              height: 40.0,
+              width: 100.0,
+              
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.logout_rounded,color: Colors.black),
+                  Text("Sign Out")
+                ],
+              ),
+              
+            ),
+        ),
+        color: Color.fromARGB(255, 167, 210, 203),
+        borderRadius: BorderRadius.all(
+                            Radius.circular(10)
+                  ),
       ),
     );
   }

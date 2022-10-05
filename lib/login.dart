@@ -20,21 +20,20 @@ class loginpage extends StatelessWidget {
               child: ListView(
                 children: <Widget>[
                   Container(
+                    height: 100,
                       alignment: Alignment.center,
                       padding: EdgeInsets.only(top: 50),
-                      child: const Text(
-                        'Bambinut',
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 135, 76, 98),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 30),
-                      )),
+                      child: Image.asset(
+                      "assets/images/textlogo.png",
+                      width: 300,
+                      height: 300,
+                    )),
                   Container(
                       alignment: Alignment.center,
-                      padding: const EdgeInsets.only(top: 60, bottom: 30),
+                      padding: const EdgeInsets.only(top: 30, bottom: 30),
                       child: const Text(
                         'Login',
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500),
                       )),
                   Container(
                     padding: const EdgeInsets.all(10),

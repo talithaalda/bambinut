@@ -17,21 +17,20 @@ class signuppage extends StatelessWidget {
             child: ListView(
               children: <Widget>[
                 Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.only(top: 50),
-                    child: const Text(
-                      'Bambinut',
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 135, 76, 98),
-                          fontWeight: FontWeight.w500,
-                          fontSize: 30),
+                    height: 100,
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.only(top: 50),
+                      child: Image.asset(
+                      "assets/images/textlogo.png",
+                      width: 300,
+                      height: 300,
                     )),
                 Container(
                     alignment: Alignment.center,
-                    padding: const EdgeInsets.only(top: 60,bottom: 30),
+                    padding: const EdgeInsets.only(top: 30,bottom: 30),
                     child: const Text(
                       'Sign Up',
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600),
                     )),
                 Container(
                   padding: const EdgeInsets.all(10),
