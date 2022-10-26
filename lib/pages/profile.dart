@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:testing/widget/theme.dart';
 
 class profile extends StatefulWidget {
   @override
@@ -13,25 +14,25 @@ class _profileState extends State<profile> {
 
   @override
   void initState() {
-    date.text = ""; //set the initial value of text field
+    date.text = ""; //set Fthe initial value of text field
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 135, 76, 98),
+      backgroundColor: greentosca,
       appBar: AppBar(
           title: Text("Baby Profile"),
           centerTitle: true,
           leading: null,
-          actions: [
-            IconButton(
-              onPressed: null,
-              icon: Icon(Icons.settings),
-              color: Colors.white,
-            )
-          ],
+          // actions: [
+          //   IconButton(
+          //     onPressed: null,
+          //     icon: Icon(Icons.settings),
+          //     color: Colors.white,
+          //   )
+          // ],
           automaticallyImplyLeading: false),
       body: GestureDetector(
         onTap: () {
@@ -80,7 +81,7 @@ class _profileState extends State<profile> {
                 padding: EdgeInsets.all(8.0),
                 alignment: Alignment.topLeft,
                 child: Text("What's your baby name?",
-                    style: TextStyle(color: Colors.white)),
+                    style: TextStyle(color: darkchoco)),
               ),
               Container(
                 padding: const EdgeInsets.all(10),
@@ -88,13 +89,15 @@ class _profileState extends State<profile> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(50)),
                   color: Color.fromARGB(255, 242, 211, 136),
+                  border: Border.all(color: darkchoco),
+
                 ),
                 child: TextField(
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                     prefixIcon: Icon(Icons.person,
                         color: Color.fromARGB(255, 116, 116, 116)),
-                    labelText: "Baby Name",
+                    label: Text("Baby Name",style: TextStyle(color: Colors.black),),
                     floatingLabelBehavior: FloatingLabelBehavior.never,
                   ),
                 ),
@@ -104,7 +107,7 @@ class _profileState extends State<profile> {
                 padding: EdgeInsets.all(8.0),
                 alignment: Alignment.topLeft,
                 child: Text("Date of birth?",
-                    style: TextStyle(color: Colors.white)),
+                    style: TextStyle(color: darkchoco)),
               ),
               Container(
                 padding: const EdgeInsets.all(10),
@@ -112,6 +115,8 @@ class _profileState extends State<profile> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(50)),
                   color: Color.fromARGB(255, 242, 211, 136),
+                  border: Border.all(color: darkchoco),
+
                 ),
                 child: TextField(
                   controller: date,
@@ -119,7 +124,7 @@ class _profileState extends State<profile> {
                     border: InputBorder.none,
                     prefixIcon: Icon(Icons.calendar_today,
                         color: Color.fromARGB(255, 116, 116, 116)),
-                    labelText: 'Select Date',
+                    label: Text('Select Date',style: TextStyle(color: Colors.black),),
                     floatingLabelBehavior: FloatingLabelBehavior.never,
                   ),
                   readOnly: true,
@@ -134,7 +139,8 @@ class _profileState extends State<profile> {
                       print(
                           newDate); //newDate output format => 2021-03-10 00:00:00.000
                       String formattedDate =
-                          DateFormat('yyyy-MM-dd').format(newDate);
+                          DateFormat.yMMMMd('en_US').format(newDate);
+
                       print(
                           formattedDate); //formatted date output using intl package =>  2021-03-16
                       //you can implement different kind of Date Format here according to your requirement
@@ -150,61 +156,50 @@ class _profileState extends State<profile> {
                 ),
               ),
               SizedBox(height: 40),
-                Material(
-                  child: InkWell(
-                    splashColor: Colors.white,
-                    child: Container(
-                        height: 50,
-                        width: 300,
-                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: Center(
-                          child: Text("Save",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18
-                          ),)),
-                    ),
-                    onTap: () {
-                      
-                    },
+              Material(
+                child: InkWell(
+                  splashColor: Colors.white,
+                  child: Container(
+                    height: 50,
+                    width: 300,
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: Center(
+                        child: Text(
+                      "Save",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18),
+                    )),
                   ),
-                  color: Color.fromARGB(255, 167, 210, 203),
-                  borderRadius: BorderRadius.all(
-                            Radius.circular(50)
-                  ),
+                  onTap: () {},
                 ),
-                
+                color: darkchoco,
+                borderRadius: BorderRadius.all(Radius.circular(50)),
+              ),
             ],
           ),
         ),
       ),
       floatingActionButton: Material(
         child: InkWell(
-          onTap: () {
-              },
-          borderRadius: BorderRadius.all(
-                              Radius.circular(50)
-                    ),
+          onTap: () {},
+          borderRadius: BorderRadius.all(Radius.circular(50)),
           splashColor: Colors.white,
           child: Container(
-              height: 40.0,
-              width: 100.0,
-              
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.logout_rounded,color: Colors.black),
-                  Text("Sign Out")
-                ],
-              ),
-              
+            height: 40.0,
+            width: 100.0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.logout_rounded, color: Colors.white),
+                Text("Sign Out",style: TextStyle(color: Colors.white),)
+              ],
             ),
+          ),
         ),
-        color: Color.fromARGB(255, 167, 210, 203),
-        borderRadius: BorderRadius.all(
-                            Radius.circular(10)
-                  ),
+        color: darkchoco,
+        borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
     );
   }

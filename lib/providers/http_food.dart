@@ -1,13 +1,15 @@
-import 'package:flutter/foundation.dart';
-class Food with ChangeNotifier{
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:http/http.dart' as http;
+
+class HttpFood  {
   final int id;
   final String title;
   final String image;
   final String description;
   final List keyNutri;
 
-
-  Food({
+  HttpFood({
     required this.id,
     required this.title,
     required this.image,
@@ -15,3 +17,4 @@ class Food with ChangeNotifier{
     required this.keyNutri,
   });
 }
+

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:testing/pages/date.dart';
 import 'package:testing/pages/profile.dart';
-
 import 'home.dart';
 import 'insight.dart';
 import 'list.dart';
@@ -21,6 +21,7 @@ class _menuState extends State<menu> {
   final List<Widget> children =
   [
     homepage(),
+    date(),
     insight(),
     listpage(),
     profile()
@@ -48,13 +49,17 @@ class _menuState extends State<menu> {
               icon: Icon(Icons.home),
               label: "Home",
               ),
+               BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_month),
+              label: "Date",
+              ),
             BottomNavigationBarItem(
               icon: Image(image: AssetImage("assets/images/chart.png"),width: 15),
               label: "Insight",
               ),
             BottomNavigationBarItem(
               icon: Icon(Icons.list),
-              label: "Lists",
+              label: "Category",
               ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),

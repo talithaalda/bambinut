@@ -89,6 +89,26 @@ class signuppage extends StatelessWidget {
                     ),
                   ),
                 ),
+                SizedBox(height: 10),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  height: 60,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(50)
+                      ),
+                      color: Color.fromARGB(255, 242, 211, 136),
+                  ),
+                  child: TextField(
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      prefixIcon:Icon(Icons.lock, color: Color.fromARGB(255, 116, 116, 116)),
+                      labelText: 'Re-Type Password',
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                    ),
+                  ),
+                ),
                 SizedBox(height: 20),
                 Material(
                   child: InkWell(

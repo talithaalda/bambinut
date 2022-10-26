@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.6 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -29,8 +29,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  charts_flutter: ^0.12.0
+  charts_flutter_new: ^0.12.0
   intl: ^0.17.0
+  google_fonts: ^3.0.1
+  syncfusion_flutter_calendar: ^20.3.50
+  http: ^0.13.5
+  dotted_border: ^2.0.0+3
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -41,6 +45,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   provider: ^6.0.3
+  
+  
 
 
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -75,7 +81,7 @@ flutter:
     - assets/images/mango.png
     - assets/images/noodles.png
     - assets/images/potato.png
-    - assets/images/chicken-leg.png
+    - assets/images/chickenleg.png
     - assets/images/milk.png
     - assets/images/pumpkin.png
     - assets/images/raspberry.png
@@ -88,6 +94,20 @@ flutter:
     - assets/images/yogurt.png
     - assets/images/logo.png
     - assets/images/textlogo.png
+    - assets/images/camera.png
+    - assets/images/grain.png
+    - assets/images/vegetable.png
+    - assets/images/fruits.png
+    - assets/images/protein.png
+    - assets/images/dairy.png
+    - assets/images/sad.png
+    - assets/images/happy.png
+    - assets/images/straight.png
+    - assets/images/x.png
+
+
+
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

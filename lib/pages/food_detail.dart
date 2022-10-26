@@ -13,77 +13,100 @@ class food_detail extends StatelessWidget {
     final foodName = ModalRoute.of(context)?.settings.arguments as String;
     final food = Provider.of<Foods>(context).findbyName(foodName);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "$foodName",style:
-            TextStyle(fontWeight: FontWeight.w700, fontSize: 24)),
-            centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 167, 210, 203),
-        elevation: 0,
-        iconTheme: IconThemeData(color: Colors.black),
-      ),
-      body: Container(
-      color: Color.fromARGB(255, 167, 210, 203),
-      child: ListView(
-        children: [
-          Container(
-          padding: EdgeInsets.all(10),
-          child: Center(
-            child: Image.asset(
-              "${food.image}",
-              width: 400,
-              height: 200,
-            ),
-          ),
+        appBar: AppBar(
+          title: Text("$foodName",
+              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 19)),
+          centerTitle: true,
+          backgroundColor: Color.fromARGB(255, 167, 210, 203),
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.black),
         ),
-          Container(
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      child: Column(
-        children: [
-          Text("Key Nutrients",
-              style: TextStyle(
-                  // color: Colors.accents,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20)),
-          SizedBox(height: 10),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Text(
-              "Vitamin C",
-              textAlign: TextAlign.justify,
-              style: TextStyle(color: Colors.black, fontSize: 20, height: 1.5),
-            ),
-            decoration: BoxDecoration(
-              color: Colors.amber,
-              borderRadius: BorderRadius.circular(7),
-            ),
+        body: Container(
+          color: Color.fromARGB(255, 167, 210, 203),
+          height: MediaQuery.of(context).size.height,
+          child: ListView(
+            children: [
+              Container(
+                padding: EdgeInsets.all(10),
+                child: Center(
+                  child: Image.asset(
+                    "${food.image}",
+                    width: 400,
+                    height: 200,
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: Column(
+                  children: [
+                    Text("Key Nutrients",
+                        style: TextStyle(
+                            // color: Colors.accents,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16)),
+                    SizedBox(height: 20),
+                    Container(
+                      height: 30,
+                      child: ListView(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          for (String nutri in food.keyNutri)
+                            Center(
+                              child: Row(
+                                children: [
+                                  Container(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    child: Text(
+                                      nutri,
+                                      textAlign: TextAlign.justify,
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          height: 1.5),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.amber,
+                                      borderRadius: BorderRadius.circular(7),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  )
+                                ],
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Text("Prep and Serve",
+                        style: TextStyle(
+                            // color: Colors.accents,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16)),
+                    SizedBox(height: 10),
+                    Text(
+                      "${food.description} Lorem ipsum dolor sit amet, consectetur adipiscing elit. In "
+                      "rutrum at ex non eleifend. Aenean sed eros a purus "
+                      "gravida scelerisque id in orci. Mauris elementum id "
+                      "nibh et dapibus. Maecenas lacinia volutpat magna",
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(
+                          color: Colors.black, fontSize: 16, height: 1.5),
+                    ),
+                    SizedBox(height: 40),
+                  ],
+                ),
+              ),
+              property()
+            ],
           ),
-          SizedBox(height: 10),
-          Text("Prep and Serve",
-              style: TextStyle(
-                  // color: Colors.accents,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20)),
-          SizedBox(height: 10),
-          Text(
-            "${food.description} Lorem ipsum dolor sit amet, consectetur adipiscing elit. In "
-            "rutrum at ex non eleifend. Aenean sed eros a purus "
-            "gravida scelerisque id in orci. Mauris elementum id "
-            "nibh et dapibus. Maecenas lacinia volutpat magna",
-            textAlign: TextAlign.justify,
-            style: TextStyle(color: Colors.black, fontSize: 20, height: 1.5),
-          ),
-          SizedBox(height: 40),
-        ],
-      ),
-    ),
-          property()
-        ],
-      ),
-    ));
+        ));
   }
 
-  
   Widget property() {
     return Container(
       // padding: EdgeInsets.all(10),
@@ -171,7 +194,7 @@ class food_detail extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.only(top: 8, bottom: 8),
                     width: 60,
-                    child: Center(child: Text("Watchlist")),
+                    child: Center(child: Text("Watchlist",style: TextStyle(fontSize: 12),)),
                   )
                 ],
               ),
