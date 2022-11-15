@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:testing/pages/menu.dart';
-import 'package:testing/pages/welcome.dart';
+import 'package:bambinut/pages/menu.dart';
+import 'package:bambinut/pages/welcome.dart';
 
 class splash extends StatefulWidget {
   const splash({Key? key}) : super(key: key);

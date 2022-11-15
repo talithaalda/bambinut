@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:testing/pages/date.dart';
-import 'package:testing/pages/profile.dart';
+import 'package:bambinut/pages/date.dart';
+import 'package:bambinut/pages/profile.dart';
 import 'home.dart';
 import 'insight.dart';
 import 'list.dart';

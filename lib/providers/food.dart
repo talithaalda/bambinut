@@ -1,17 +1,19 @@
 import 'package:flutter/foundation.dart';
-class Food with ChangeNotifier{
-  final int id;
-  final String title;
-  final String image;
-  final String description;
-  final List keyNutri;
 
+class Food  {
+   String id;
+   String title;
+   String image;
+   String description;
+   String category;
+   String feedHist;
+   DateTime createdAt;
 
-  Food({
-    required this.id,
-    required this.title,
-    required this.image,
-    required this.description,
-    required this.keyNutri,
-  });
+  Food(
+      {required this.id,required this.title,
+       required this.image,
+       required this.description,
+       required this.category,
+       this.feedHist = '',
+       required this.createdAt});
 }

@@ -1,13 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:testing/pages/createfoof.dart';
-import 'package:testing/pages/food_detail.dart';
-import 'package:testing/pages/list.dart';
+import 'package:bambinut/pages/createfood.dart';
+import 'package:bambinut/pages/food_detail.dart';
+import 'package:bambinut/pages/list.dart';
 import 'package:provider/provider.dart';
-import 'package:testing/providers/food.dart';
-import 'package:testing/providers/foods.dart';
+import 'package:bambinut/providers/food.dart';
+import 'package:bambinut/providers/foods.dart';
 
-class homepage extends StatelessWidget {
+class homepage extends StatefulWidget {
   static const nameRoute = '/homepage';
+
+  @override
+  State<homepage> createState() => _homepageState();
+}
+
+class _homepageState extends State<homepage> {
+  bool isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (isInit) {
+      Provider.of<Foods>(context).initialData();
+    }
+    isInit = false;
+    super.didChangeDependencies();
+  }
+
   List<Tab> myTab = [
     Tab(
         child: Container(
@@ -66,6 +82,8 @@ class homepage extends StatelessWidget {
   Widget build(BuildContext context) {
     // final foodData = Provider.of<food>(context);
     // final allfood = foodData.allFoods;
+    final foodsProvider = Provider.of<Foods>(context, listen: false);
+
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -88,8 +106,7 @@ class homepage extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.of(context)
-            .pushNamed(createFood.nameRoute);
+            Navigator.of(context).pushNamed(createFood.nameRoute);
           },
           child: Icon(
             Icons.add,
@@ -101,9 +118,12 @@ class homepage extends StatelessWidget {
           children: [
             GridView.builder(
               padding: EdgeInsets.all(10),
-              itemCount: Foods().foods.length,
-              itemBuilder: (ctx, i) => foodItem(
-                  title: Foods().foods[i].title, image: Foods().foods[i].image),
+              itemCount: foodsProvider.jumlahFood,
+              itemBuilder: (ctx, i) {
+                return foodItem(
+                    title: foodsProvider.foods[i].title,
+                    image: foodsProvider.foods[i].image);
+              },
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 crossAxisSpacing: 10,
@@ -162,7 +182,7 @@ class homepage extends StatelessWidget {
               crossAxisCount: 3,
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
-              childAspectRatio: 4 / 3,
+              childAspectRatio: 4 / 4,
               children: [
                 foodItem(title: "Bread", image: "assets/images/bread.png"),
                 foodItem(title: "Beef", image: "assets/images/beef.png"),
@@ -200,10 +220,14 @@ class foodItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final foodsClass = Provider.of<Foods>(context);
+
+    final foodsProvider = foodsClass.selectByName(title);
+
     return GestureDetector(
       onTap: () {
         Navigator.of(context)
-            .pushNamed(food_detail.nameRoute, arguments: title);
+            .pushNamed(food_detail.nameRoute, arguments: foodsProvider.id);
       },
       child: Container(
         child: Card(
@@ -216,7 +240,7 @@ class foodItem extends StatelessWidget {
               height: 70,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                image: AssetImage(image),
+                image: NetworkImage(image),
               )),
             ),
             Padding(

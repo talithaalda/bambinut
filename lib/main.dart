@@ -1,25 +1,26 @@
+import 'package:bambinut/pages/editfood.dart';
 import 'package:flutter/material.dart';
-import 'package:testing/login.dart';
-import 'package:testing/pages/category_detail.dart';
-import 'package:testing/pages/createfoof.dart';
-import 'package:testing/pages/createmeal.dart';
-import 'package:testing/pages/date.dart';
-import 'package:testing/pages/food_detail.dart';
-import 'package:testing/pages/home.dart';
-import 'package:testing/pages/insight.dart';
-import 'package:testing/pages/list.dart';
-import 'package:testing/pages/menu.dart';
-import 'package:testing/pages/profile.dart';
+import 'package:bambinut/login.dart';
+import 'package:bambinut/pages/category_detail.dart';
+import 'package:bambinut/pages/createfood.dart';
+import 'package:bambinut/pages/createmeal.dart';
+import 'package:bambinut/pages/date.dart';
+import 'package:bambinut/pages/food_detail.dart';
+import 'package:bambinut/pages/home.dart';
+import 'package:bambinut/pages/insight.dart';
+import 'package:bambinut/pages/list.dart';
+import 'package:bambinut/pages/menu.dart';
+import 'package:bambinut/pages/profile.dart';
 import 'package:intl/intl.dart';
-import 'package:testing/pages/splashscreen.dart';
-import 'package:testing/pages/welcome.dart';
-import 'package:testing/login.dart';
-import 'package:testing/providers/foods.dart';
-import 'package:testing/sign.dart';
+import 'package:bambinut/pages/splashscreen.dart';
+import 'package:bambinut/pages/welcome.dart';
+import 'package:bambinut/login.dart';
+import 'package:bambinut/providers/foods.dart';
+import 'package:bambinut/sign.dart';
 import 'package:provider/provider.dart';
-import 'package:testing/providers/food.dart';
+import 'package:bambinut/providers/food.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:testing/widget/theme.dart';
+import 'package:bambinut/widget/theme.dart';
 
 void main() {
   runApp(MyApp());
@@ -46,10 +47,14 @@ class _MyAppState extends State<MyApp> {
                   fontSize: 17,
                   fontWeight: FontWeight.w600),
               iconTheme: IconThemeData(color: darkchoco),
+              
             ),
             textTheme: GoogleFonts.poppinsTextTheme(
               Theme.of(context).textTheme,
             ),
+            colorScheme: ThemeData().colorScheme.copyWith(
+              primary:Colors.grey[600]
+  ),
           ),
           home: splash(),
           routes: {
@@ -63,6 +68,7 @@ class _MyAppState extends State<MyApp> {
             createFood.nameRoute: (context) => createFood(),
             createmeal.nameRoute: (context) => createmeal(),
             category_detail.nameRoute: (context) => category_detail(),
+            editFood.nameRoute: (context) => editFood(),
 
           }),
     );

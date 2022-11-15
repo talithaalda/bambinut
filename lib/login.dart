@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:testing/pages/home.dart';
-import 'package:testing/pages/menu.dart';
-import 'package:testing/sign.dart';
+import 'package:bambinut/pages/home.dart';
+import 'package:bambinut/pages/menu.dart';
+import 'package:bambinut/sign.dart';
 
 class loginpage extends StatelessWidget {
   const loginpage({Key? key}) : super(key: key);

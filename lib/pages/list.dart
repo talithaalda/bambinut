@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:testing/pages/category_detail.dart';
-import 'package:testing/pages/home.dart';
-import 'package:testing/widget/theme.dart';
+import 'package:bambinut/pages/category_detail.dart';
+import 'package:bambinut/pages/home.dart';
+import 'package:bambinut/widget/theme.dart';
 
 class listpage extends StatelessWidget {
   static const nameRoute = '/listpage';

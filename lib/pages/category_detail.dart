@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:testing/widget/theme.dart';
+import 'package:bambinut/widget/theme.dart';
 
 class category_detail extends StatelessWidget {
     static const nameRoute = '/catrgorydetail';

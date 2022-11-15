@@ -1,4 +1,4 @@
-name: testing
+name: bambinut
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -35,6 +35,9 @@ dependencies:
   syncfusion_flutter_calendar: ^20.3.50
   http: ^0.13.5
   dotted_border: ^2.0.0+3
+  firebase_storage: ^11.0.3
+  image_picker: ^0.8.6
+  # file_picker: ^5.2.2
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -103,7 +106,12 @@ flutter:
     - assets/images/sad.png
     - assets/images/happy.png
     - assets/images/straight.png
+    - assets/images/totry.png
+    - assets/images/tried.png
+    - assets/images/trying.png
+    - assets/images/watchlist.png
     - assets/images/x.png
+
 
 
 

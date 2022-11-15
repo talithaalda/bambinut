@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:testing/widget/theme.dart';
+import 'package:bambinut/widget/theme.dart';
 
 class profile extends StatefulWidget {
   @override
@@ -10,8 +10,9 @@ class profile extends StatefulWidget {
 }
 
 class _profileState extends State<profile> {
+  String imagePath = '';
   TextEditingController date = TextEditingController();
-
+  
   @override
   void initState() {
     date.text = ""; //set Fthe initial value of text field
@@ -20,6 +21,7 @@ class _profileState extends State<profile> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: greentosca,
       appBar: AppBar(
@@ -47,7 +49,26 @@ class _profileState extends State<profile> {
                 alignment: Alignment.center,
                 child: Stack(
                   children: [
-                    Positioned(
+                    (imagePath == '')
+                    ? Positioned(
+                      child: Container(
+                        width: 130,
+                        height: 130,
+                        decoration: BoxDecoration(
+                            border: Border.all(width: 4, color: Colors.white),
+                            boxShadow: [
+                              BoxShadow(
+                                  spreadRadius: 2,
+                                  blurRadius: 10,
+                                  color: Colors.black.withOpacity(0.2))
+                            ],
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage("https://astrarunners.com/assets/img/profile_picture.jpg"))),
+                      ),
+                    )
+                    : Positioned(
                       child: Container(
                         width: 130,
                         height: 130,

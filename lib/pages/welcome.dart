@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:testing/login.dart';
-import 'package:testing/sign.dart';
+import 'package:bambinut/login.dart';
+import 'package:bambinut/sign.dart';
 
 class welcome extends StatelessWidget {
   const welcome({Key? key}) : super(key: key);
