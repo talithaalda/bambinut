@@ -5,6 +5,7 @@ import 'package:bambinut/pages/list.dart';
 import 'package:provider/provider.dart';
 import 'package:bambinut/providers/food.dart';
 import 'package:bambinut/providers/foods.dart';
+import 'package:bambinut/pages/menu.dart';
 
 class homepage extends StatefulWidget {
   static const nameRoute = '/homepage';
@@ -15,13 +16,24 @@ class homepage extends StatefulWidget {
 
 class _homepageState extends State<homepage> {
   bool isInit = true;
+  int selectedFood = 0;
+  bool navbottom = menu.navbottom;
+
   @override
   void didChangeDependencies() {
-    if (isInit) {
-      Provider.of<Foods>(context).initialData();
+    if (navbottom == false) {
+      if (isInit) {
+        Provider.of<Foods>(context).initialData();
+      }
+      isInit = false;
+      super.didChangeDependencies();
     }
-    isInit = false;
-    super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    isInit = true;
+    super.dispose();
   }
 
   List<Tab> myTab = [
@@ -104,16 +116,16 @@ class _homepageState extends State<homepage> {
             tabs: myTab,
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.of(context).pushNamed(createFood.nameRoute);
-          },
-          child: Icon(
-            Icons.add,
-            color: Colors.black,
-          ),
-          backgroundColor: Color.fromARGB(255, 242, 211, 136),
-        ),
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () {
+        //     Navigator.of(context).pushNamed(createFood.nameRoute);
+        //   },
+        //   child: Icon(
+        //     Icons.add,
+        //     color: Colors.black,
+        //   ),
+        //   backgroundColor: Color.fromARGB(255, 242, 211, 136),
+        // ),
         body: TabBarView(
           children: [
             GridView.builder(
@@ -212,20 +224,28 @@ class _homepageState extends State<homepage> {
   }
 }
 
-class foodItem extends StatelessWidget {
+class foodItem extends StatefulWidget {
   final String title;
   final String image;
 
   foodItem({required this.title, required this.image});
 
   @override
+  State<foodItem> createState() => _foodItemState();
+}
+
+class _foodItemState extends State<foodItem> {
+  @override
   Widget build(BuildContext context) {
     final foodsClass = Provider.of<Foods>(context);
-
-    final foodsProvider = foodsClass.selectByName(title);
+    final foodsProvider = foodsClass.selectByName(widget.title);
+    int selectedFood = -1;
 
     return GestureDetector(
       onTap: () {
+        // setState(() {
+        //   selectedFood = 1;
+        // });
         Navigator.of(context)
             .pushNamed(food_detail.nameRoute, arguments: foodsProvider.id);
       },
@@ -240,7 +260,7 @@ class foodItem extends StatelessWidget {
               height: 70,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                image: NetworkImage(image),
+                image: NetworkImage(widget.image),
               )),
             ),
             Padding(
@@ -261,11 +281,13 @@ class foodItem extends StatelessWidget {
                     children: [
                       Container(
                           child: Center(
-                              child: Icon(
-                            Icons.check,
-                            size: 10,
-                            color: Colors.black,
-                          )),
+                              child: selectedFood == 1
+                                  ? Icon(
+                                      Icons.check,
+                                      size: 10,
+                                      color: Colors.black,
+                                    )
+                                  : null),
                           height: 13,
                           width: 13,
                           decoration: BoxDecoration(
@@ -276,7 +298,7 @@ class foodItem extends StatelessWidget {
                         width: 8,
                       ),
                       Text(
-                        title,
+                        widget.title,
                         style: TextStyle(
                             fontSize: 12, fontWeight: FontWeight.w700),
                       )

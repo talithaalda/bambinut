@@ -1,18 +1,22 @@
+import 'dart:io';
 import 'dart:math';
 
+import 'package:bambinut/database_services.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:bambinut/widget/theme.dart';
 
 class profile extends StatefulWidget {
   @override
   State<profile> createState() => _profileState();
+  static const nameRoute = '/profil';
 }
 
 class _profileState extends State<profile> {
-  String imagePath = '';
+  String imagePath = 'null';
   TextEditingController date = TextEditingController();
-  
+  late File selectedImage;
   @override
   void initState() {
     date.text = ""; //set Fthe initial value of text field
@@ -21,7 +25,6 @@ class _profileState extends State<profile> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       backgroundColor: greentosca,
       appBar: AppBar(
@@ -49,51 +52,73 @@ class _profileState extends State<profile> {
                 alignment: Alignment.center,
                 child: Stack(
                   children: [
-                    (imagePath == '')
-                    ? Positioned(
-                      child: Container(
-                        width: 130,
-                        height: 130,
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 4, color: Colors.white),
-                            boxShadow: [
-                              BoxShadow(
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  color: Colors.black.withOpacity(0.2))
-                            ],
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage("https://astrarunners.com/assets/img/profile_picture.jpg"))),
-                      ),
-                    )
-                    : Positioned(
-                      child: Container(
-                        width: 130,
-                        height: 130,
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 4, color: Colors.white),
-                            boxShadow: [
-                              BoxShadow(
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  color: Colors.black.withOpacity(0.2))
-                            ],
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage("assets/images/baby.jpg"))),
+                    (imagePath == 'null')
+                        ? Positioned(
+                            child: Container(
+                              width: 130,
+                              height: 130,
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border.all(width: 4, color: Colors.white),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        spreadRadius: 2,
+                                        blurRadius: 10,
+                                        color: Colors.black.withOpacity(0.2))
+                                  ],
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(
+                                          "https://astrarunners.com/assets/img/profile_picture.jpg"))),
+                            ),
+                          )
+                        : Positioned(
+                            child: Container(
+                              width: 130,
+                              height: 130,
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border.all(width: 4, color: Colors.white),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        spreadRadius: 2,
+                                        blurRadius: 10,
+                                        color: Colors.black.withOpacity(0.2))
+                                  ],
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(imagePath))),
+                            ),
+                          ),
+                    Positioned(
+                      bottom: 1,
+                      right: 1,
+                      width: 40,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50.0)),
+                        ),
+                        onPressed: () async {
+                          final ImagePicker _picker = ImagePicker();
+                          final XFile? image = await _picker.pickImage(
+                              source: ImageSource.gallery);
+                          selectedImage = File(image!.path);
+                          imagePath = await DatabaseServices.uploadProfile(
+                              selectedImage);
+                          setState(() {});
+                        },
+                        child: Icon(
+                          Icons.add_a_photo,
+                          color: Colors.white,
+                          size: 20,
+                        ),
                       ),
                     ),
-                    Positioned(
-                        bottom: 1,
-                        right: 1,
-                        child: Container(
-                            child: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: Icon(Icons.add_a_photo, color: Colors.white),
-                        ))),
                   ],
                 ),
               ),
@@ -111,14 +136,16 @@ class _profileState extends State<profile> {
                   borderRadius: BorderRadius.all(Radius.circular(50)),
                   color: Color.fromARGB(255, 242, 211, 136),
                   border: Border.all(color: darkchoco),
-
                 ),
                 child: TextField(
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                     prefixIcon: Icon(Icons.person,
                         color: Color.fromARGB(255, 116, 116, 116)),
-                    label: Text("Baby Name",style: TextStyle(color: Colors.black),),
+                    label: Text(
+                      "Baby Name",
+                      style: TextStyle(color: Colors.black),
+                    ),
                     floatingLabelBehavior: FloatingLabelBehavior.never,
                   ),
                 ),
@@ -127,8 +154,8 @@ class _profileState extends State<profile> {
               Container(
                 padding: EdgeInsets.all(8.0),
                 alignment: Alignment.topLeft,
-                child: Text("Date of birth?",
-                    style: TextStyle(color: darkchoco)),
+                child:
+                    Text("Date of birth?", style: TextStyle(color: darkchoco)),
               ),
               Container(
                 padding: const EdgeInsets.all(10),
@@ -137,7 +164,6 @@ class _profileState extends State<profile> {
                   borderRadius: BorderRadius.all(Radius.circular(50)),
                   color: Color.fromARGB(255, 242, 211, 136),
                   border: Border.all(color: darkchoco),
-
                 ),
                 child: TextField(
                   controller: date,
@@ -145,7 +171,10 @@ class _profileState extends State<profile> {
                     border: InputBorder.none,
                     prefixIcon: Icon(Icons.calendar_today,
                         color: Color.fromARGB(255, 116, 116, 116)),
-                    label: Text('Select Date',style: TextStyle(color: Colors.black),),
+                    label: Text(
+                      'Select Date',
+                      style: TextStyle(color: Colors.black),
+                    ),
                     floatingLabelBehavior: FloatingLabelBehavior.never,
                   ),
                   readOnly: true,
@@ -214,7 +243,10 @@ class _profileState extends State<profile> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(Icons.logout_rounded, color: Colors.white),
-                Text("Sign Out",style: TextStyle(color: Colors.white),)
+                Text(
+                  "Sign Out",
+                  style: TextStyle(color: Colors.white),
+                )
               ],
             ),
           ),
@@ -225,3 +257,10 @@ class _profileState extends State<profile> {
     );
   }
 }
+
+// Future<File> getImage() async {
+//   print("hello");
+//   final ImagePicker _picker = ImagePicker();
+//     // Pick an image
+//     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+// }

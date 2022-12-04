@@ -1,9 +1,16 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:bambinut/pages/date.dart';
 import 'package:bambinut/widget/theme.dart';
 import 'package:bambinut/providers/foods.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:bambinut/pages/menu.dart';
+
+import '../database_services.dart';
 
 class createFood extends StatefulWidget {
   static const nameRoute = '/createfood';
@@ -13,13 +20,20 @@ class createFood extends StatefulWidget {
 }
 
 class _createFoodState extends State<createFood> {
+  String getId() {
+    final now = DateTime.now();
+    return now.microsecondsSinceEpoch.toString();
+  }
+
   int selectedIndexFG = -1;
   int selectedIndexFH = -1;
+  String foodimageC = '';
   String foodGrup = '';
   String feedHist = '';
-
+  // String id = json.decode(response.body)["name"].toString();
+  late File selectedImage;
+  String imagePath = 'null';
   final TextEditingController foodnameC = TextEditingController();
-  final TextEditingController foodimageC = TextEditingController();
   final TextEditingController descC = TextEditingController();
 
   @override
@@ -44,21 +58,62 @@ class _createFoodState extends State<createFood> {
           padding: const EdgeInsets.only(left: 30, right: 30),
           child: ListView(
             children: [
-              // DottedBorder(
-              //   borderType: BorderType.RRect,
-              //   color: Color.fromARGB(255, 129, 128, 128),
-              //   radius: Radius.circular(10),
-              //   strokeWidth: 2,
-              //   dashPattern: [10, 6],
-              //   child: Container(
-              //     height: 150,
-              //     width: 300,
-              //     decoration: BoxDecoration(
-              //         image: DecorationImage(
-              //       image: AssetImage("assets/images/camera.png"),
-              //     )),
-              //   ),
-              // ),
+              DottedBorder(
+                borderType: BorderType.RRect,
+                color: Color.fromARGB(255, 129, 128, 128),
+                radius: Radius.circular(10),
+                strokeWidth: 2,
+                dashPattern: [10, 6],
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0x00000000),
+                    shadowColor: Colors.transparent.withOpacity(0.1),
+                  ),
+                  onPressed: () async {
+                    final ImagePicker _picker = ImagePicker();
+                    final XFile? image =
+                        await _picker.pickImage(source: ImageSource.gallery);
+                    selectedImage = File(image!.path);
+                    imagePath = await DatabaseServices.uploadImageFood(
+                      selectedImage,
+                      getId(),
+                    );
+                    setState(() {
+                      foodimageC = imagePath;
+                    });
+                  },
+                  child: (imagePath == 'null')
+                      ? Container(
+                          height: 150,
+                          width: 330,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage("assets/images/camera.png"),
+                            ),
+                          ),
+                        )
+                      : Stack(children: [
+                          Container(
+                            height: 150,
+                            width: 330,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage("$imagePath"),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            height: 150,
+                            width: 330,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage("assets/images/camera.png"),
+                              ),
+                            ),
+                          ),
+                        ]),
+                ),
+              ),
               SizedBox(height: 26),
               Container(
                 height: 42,
@@ -133,18 +188,21 @@ class _createFoodState extends State<createFood> {
                           color: darkchoco,
                           fontSize: 16),
                     ),
-                   Padding(
-                     padding: const EdgeInsets.symmetric(horizontal: 30),
-                     child: Row(
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            feedingHistory(0, "assets/images/totry.png", "To Try"),
-                            feedingHistory(1, "assets/images/trying.png", "Trying"),
-                            feedingHistory(2, "assets/images/tried.png", "Tried"),
-                            feedingHistory(3, "assets/images/watchlist.png", "Watchlist"),
-                          ],
-                        ),
-                   ),
+                        children: [
+                          feedingHistory(
+                              0, "assets/images/totry.png", "To Try"),
+                          feedingHistory(
+                              1, "assets/images/trying.png", "Trying"),
+                          feedingHistory(2, "assets/images/tried.png", "Tried"),
+                          feedingHistory(
+                              3, "assets/images/watchlist.png", "Watchlist"),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -173,7 +231,8 @@ class _createFoodState extends State<createFood> {
                       decoration: const InputDecoration(
                           border: InputBorder.none,
                           floatingLabelBehavior: FloatingLabelBehavior.never,
-                          contentPadding: EdgeInsets.only(left: 15,right: 15,bottom: 15),
+                          contentPadding:
+                              EdgeInsets.only(left: 15, right: 15, bottom: 15),
                           label: Center(child: Text("Descriptions"))),
                     ),
                   ),
@@ -182,26 +241,25 @@ class _createFoodState extends State<createFood> {
               SizedBox(
                 height: 26,
               ),
-               Container(
-                height: 42,
-                width: 320,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(36)),
-                    color: Color.fromARGB(255, 242, 211, 136),
-                    border: Border.all(color: darkchoco)),
-                child: TextFormField(
-                  
-                  controller: foodimageC,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    prefixIcon: Icon(Icons.camera),
-                    labelText: 'Food Image Url',
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 5,vertical: -13),
-
-                  ),
-                ),
-              ),
+              // Container(
+              //   height: 42,
+              //   width: 320,
+              //   decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.all(Radius.circular(36)),
+              //       color: Color.fromARGB(255, 242, 211, 136),
+              //       border: Border.all(color: darkchoco)),
+              //   child: TextFormField(
+              //     controller: foodimageC,
+              //     decoration: const InputDecoration(
+              //       border: InputBorder.none,
+              //       prefixIcon: Icon(Icons.camera),
+              //       labelText: 'Food Image Url',
+              //       floatingLabelBehavior: FloatingLabelBehavior.never,
+              //       contentPadding:
+              //           EdgeInsets.symmetric(horizontal: 5, vertical: -13),
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                 height: 26,
               ),
@@ -220,11 +278,12 @@ class _createFoodState extends State<createFood> {
                     onPressed: () {
                       foods
                           .addFood(
+                        getId(),
                         foodnameC.text,
                         descC.text,
                         foodGrup,
                         feedHist,
-                        foodimageC.text,
+                        foodimageC,
                       )
                           .then(
                         (response) {
@@ -235,6 +294,7 @@ class _createFoodState extends State<createFood> {
                               duration: Duration(seconds: 2),
                             ),
                           );
+                          menu.navbottom = false;
                           Navigator.pop(context);
                         },
                       );

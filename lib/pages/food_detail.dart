@@ -16,17 +16,6 @@ class food_detail extends StatefulWidget {
 }
 
 class _food_detailState extends State<food_detail> {
- bool isInit = true;
-  @override
-  void didChangeDependencies() {
-    if (isInit) {
-      Provider.of<Foods>(context).initialData();
-      
-    }
-    isInit = false;
-    super.didChangeDependencies();
-  }
-  
   @override
   Widget build(BuildContext context) {
     final foodId = ModalRoute.of(context)?.settings.arguments as String;
@@ -46,7 +35,8 @@ class _food_detailState extends State<food_detail> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(editFood.nameRoute, arguments: foodId);
+                Navigator.of(context)
+                    .pushNamed(editFood.nameRoute, arguments: foodId);
               },
               icon: Icon(Icons.edit),
               color: Color.fromARGB(255, 123, 11, 3)),

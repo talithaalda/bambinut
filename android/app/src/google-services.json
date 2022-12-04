@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "743337010731",
+    "firebase_url": "https://bambinut-df6a3-default-rtdb.firebaseio.com",
+    "project_id": "bambinut-df6a3",
+    "storage_bucket": "bambinut-df6a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:743337010731:android:5734181c311f13a7a0ec6e",
+        "android_client_info": {
+          "package_name": "com.example.bambinut"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "743337010731-pt2bkddqg7fr6j15g4q3p3qp2c5lpjc4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjZzw9hs3rk04HHP_-SyVDH4o6KAepLVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "743337010731-pt2bkddqg7fr6j15g4q3p3qp2c5lpjc4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -159,8 +159,8 @@ class Foods with ChangeNotifier {
   Food selectByName(String name) =>
       _foods.firstWhere((element) => element.title == name);
 
-  Future<void> addFood(String id, String title, String description,
-      String category, String feedHist, String image) {
+  Future<void> addFood(String title, String description, String category,
+      String feedHist, String image) {
     DateTime datetimeNow = DateTime.now();
 
     Uri url = Uri.parse(
@@ -170,7 +170,6 @@ class Foods with ChangeNotifier {
       url,
       body: json.encode(
         {
-          "id": id,
           "title": title,
           "description": description,
           "imageUrl": image,
@@ -185,7 +184,7 @@ class Foods with ChangeNotifier {
         print("THEN FUNCTION");
         _foods.add(
           Food(
-            id: id,
+            id: json.decode(response.body)["name"].toString(),
             title: title,
             description: description,
             image: image,
@@ -226,28 +225,6 @@ class Foods with ChangeNotifier {
         selectFood.image = image;
         selectFood.category = category;
         selectFood.feedHist = feedHist;
-        notifyListeners();
-      },
-    );
-  }
-
-  Future<void> editFoodImage(String id, String image) {
-    Uri url = Uri.parse(
-        "https://bambinut-df6a3-default-rtdb.firebaseio.com/Foods/$id.json");
-
-    return http
-        .patch(
-      url,
-      body: json.encode(
-        {
-          "imageUrl": image,
-        },
-      ),
-    )
-        .then(
-      (response) {
-        Food selectFood = _foods.firstWhere((element) => element.id == id);
-        selectFood.image = image;
         notifyListeners();
       },
     );

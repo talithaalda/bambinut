@@ -1,8 +1,12 @@
+import 'dart:io';
+
+import 'package:bambinut/database_services.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:bambinut/pages/date.dart';
 import 'package:bambinut/widget/theme.dart';
 import 'package:bambinut/providers/foods.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class editFood extends StatefulWidget {
@@ -17,23 +21,27 @@ class _editFoodState extends State<editFood> {
   int selectedIndexFH = -1;
   String category = '';
   String feedHist = '';
+  String foodimageC = '';
+  String imagePath = '';
+
   late TextEditingController foodnameC;
-  late TextEditingController foodimageC;
   late TextEditingController descC;
+  late File selectedImage;
   @override
   void didChangeDependencies() {
     final foods = Provider.of<Foods>(context, listen: false);
     final foodId = ModalRoute.of(context)?.settings.arguments as String;
 
     final foodsProvider = foods.selectById(foodId);
+
     foodnameC = TextEditingController(text: foodsProvider.title)
       ..addListener(() {
         setState(() {});
       });
-    foodimageC = TextEditingController(text: foodsProvider.image)
-      ..addListener(() {
-        setState(() {});
-      });
+    // foodimageC = TextEditingController(text: foodsProvider.image)
+    //   ..addListener(() {
+    //     setState(() {});
+    //   });
     descC = TextEditingController(text: foodsProvider.description)
       ..addListener(() {
         setState(() {});
@@ -62,6 +70,8 @@ class _editFoodState extends State<editFood> {
     }
     category = foodsProvider.category;
     feedHist = foodsProvider.feedHist;
+    imagePath = foodsProvider.image;
+    foodimageC = foodsProvider.image;
     super.didChangeDependencies();
   }
 
@@ -80,8 +90,6 @@ class _editFoodState extends State<editFood> {
     final foodId = ModalRoute.of(context)?.settings.arguments as String;
 
     final foodsProvider = foods.selectById(foodId);
-
-    
 
     return Scaffold(
       backgroundColor: greentosca,
@@ -102,21 +110,62 @@ class _editFoodState extends State<editFood> {
           padding: const EdgeInsets.only(left: 30, right: 30),
           child: ListView(
             children: [
-              // DottedBorder(
-              //   borderType: BorderType.RRect,
-              //   color: Color.fromARGB(255, 129, 128, 128),
-              //   radius: Radius.circular(10),
-              //   strokeWidth: 2,
-              //   dashPattern: [10, 6],
-              //   child: Container(
-              //     height: 150,
-              //     width: 300,
-              //     decoration: BoxDecoration(
-              //         image: DecorationImage(
-              //       image: AssetImage("assets/images/camera.png"),
-              //     )),
-              //   ),
-              // ),
+              DottedBorder(
+                borderType: BorderType.RRect,
+                color: Color.fromARGB(255, 129, 128, 128),
+                radius: Radius.circular(10),
+                strokeWidth: 2,
+                dashPattern: [10, 6],
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0x00000000),
+                    shadowColor: Colors.transparent.withOpacity(0.1),
+                  ),
+                  onPressed: () async {
+                    final ImagePicker _picker = ImagePicker();
+                    final XFile? image =
+                        await _picker.pickImage(source: ImageSource.gallery);
+                    selectedImage = File(image!.path);
+                    imagePath = await DatabaseServices.uploadImageFood(
+                      selectedImage,
+                      foodsProvider.id,
+                    );
+                    setState(() {
+                      foodimageC = imagePath;
+                    });
+                  },
+                  child: (imagePath == 'null')
+                      ? Container(
+                          height: 150,
+                          width: 330,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage("assets/images/camera.png"),
+                            ),
+                          ),
+                        )
+                      : Stack(children: [
+                          Container(
+                            height: 150,
+                            width: 330,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage("$imagePath"),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            height: 150,
+                            width: 330,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage("assets/images/camera.png"),
+                              ),
+                            ),
+                          ),
+                        ]),
+                ),
+              ),
               SizedBox(height: 26),
               Container(
                 height: 42,
@@ -241,28 +290,28 @@ class _editFoodState extends State<editFood> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 26,
-              ),
-              Container(
-                height: 42,
-                width: 320,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(36)),
-                    color: Color.fromARGB(255, 242, 211, 136),
-                    border: Border.all(color: darkchoco)),
-                child: TextFormField(
-                  controller: foodimageC,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    prefixIcon: Icon(Icons.camera),
-                    labelText: 'Food Image Url',
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 5, vertical: -13),
-                  ),
-                ),
-              ),
+              // SizedBox(
+              //   height: 26,
+              // ),
+              // Container(
+              //   height: 42,
+              //   width: 320,
+              //   decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.all(Radius.circular(36)),
+              //       color: Color.fromARGB(255, 242, 211, 136),
+              //       border: Border.all(color: darkchoco)),
+              //   child: TextFormField(
+              //     controller: foodimageC,
+              //     decoration: const InputDecoration(
+              //       border: InputBorder.none,
+              //       prefixIcon: Icon(Icons.camera),
+              //       labelText: 'Food Image Url',
+              //       floatingLabelBehavior: FloatingLabelBehavior.never,
+              //       contentPadding:
+              //           EdgeInsets.symmetric(horizontal: 5, vertical: -13),
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                 height: 26,
               ),
@@ -284,7 +333,7 @@ class _editFoodState extends State<editFood> {
                         foodId,
                         foodnameC.text,
                         descC.text,
-                        foodimageC.text,
+                        foodimageC,
                         category,
                         feedHist,
                       )

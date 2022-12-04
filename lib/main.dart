@@ -21,8 +21,11 @@ import 'package:provider/provider.dart';
 import 'package:bambinut/providers/food.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:bambinut/widget/theme.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -47,14 +50,12 @@ class _MyAppState extends State<MyApp> {
                   fontSize: 17,
                   fontWeight: FontWeight.w600),
               iconTheme: IconThemeData(color: darkchoco),
-              
             ),
             textTheme: GoogleFonts.poppinsTextTheme(
               Theme.of(context).textTheme,
             ),
-            colorScheme: ThemeData().colorScheme.copyWith(
-              primary:Colors.grey[600]
-  ),
+            colorScheme:
+                ThemeData().colorScheme.copyWith(primary: Colors.grey[600]),
           ),
           home: splash(),
           routes: {
@@ -69,7 +70,6 @@ class _MyAppState extends State<MyApp> {
             createmeal.nameRoute: (context) => createmeal(),
             category_detail.nameRoute: (context) => category_detail(),
             editFood.nameRoute: (context) => editFood(),
-
           }),
     );
   }

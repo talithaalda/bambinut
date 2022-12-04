@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:bambinut/pages/home.dart';
 import 'package:bambinut/pages/menu.dart';
 import 'package:bambinut/sign.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class loginpage extends StatelessWidget {
   const loginpage({Key? key}) : super(key: key);
-  static const nameRoute = '/homepage';
+  static const nameRoute = '/login';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,20 +20,21 @@ class loginpage extends StatelessWidget {
               child: ListView(
                 children: <Widget>[
                   Container(
-                    height: 100,
+                      height: 100,
                       alignment: Alignment.center,
                       padding: EdgeInsets.only(top: 50),
                       child: Image.asset(
-                      "assets/images/textlogo.png",
-                      width: 300,
-                      height: 300,
-                    )),
+                        "assets/images/textlogo.png",
+                        width: 300,
+                        height: 300,
+                      )),
                   Container(
                       alignment: Alignment.center,
                       padding: const EdgeInsets.only(top: 30, bottom: 30),
                       child: const Text(
                         'Login',
-                        style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w500),
                       )),
                   Container(
                     padding: const EdgeInsets.all(10),
