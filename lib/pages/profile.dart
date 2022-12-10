@@ -1,11 +1,13 @@
 import 'dart:io';
-import 'dart:math';
 
-import 'package:bambinut/database_services.dart';
+import 'package:bambinut/controller/database_services.dart';
+import 'package:bambinut/pages/menu.dart';
+import 'package:bambinut/providers/user.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:bambinut/widget/theme.dart';
+import 'package:provider/provider.dart';
 
 class profile extends StatefulWidget {
   @override
@@ -14,30 +16,51 @@ class profile extends StatefulWidget {
 }
 
 class _profileState extends State<profile> {
-  String imagePath = 'null';
-  TextEditingController date = TextEditingController();
-  late File selectedImage;
+  String imagePath = '';
+  String imageUrlC = '';
+
+  TextEditingController date;
+  TextEditingController babyName;
+
+  File selectedImage;
   @override
-  void initState() {
-    date.text = ""; //set Fthe initial value of text field
-    super.initState();
+  void didChangeDependencies() {
+    final usersProvider = Provider.of<Users>(context, listen: false);
+    final users = usersProvider.selectById(usersProvider.uid);
+    babyName = TextEditingController(text: users.babyName)
+      ..addListener(() {
+        setState(() {});
+      });
+    date = TextEditingController(text: users.dateBirth)
+      ..addListener(() {
+        setState(() {});
+      });
+    // date.text = users.dateBirth;
+
+    imageUrlC = users.profileUrl;
+
+    imagePath = users.profileUrl;
+    super.didChangeDependencies();
   }
+
+  // void initState() {
+  //   // date.text = ""; //set Fthe initial value of text field
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    menu.navbottom = true;
+    final usersProvider = Provider.of<Users>(context, listen: false);
+    String userID = usersProvider.userID();
+    final users = usersProvider.selectById(userID);
+
     return Scaffold(
       backgroundColor: greentosca,
       appBar: AppBar(
           title: Text("Baby Profile"),
           centerTitle: true,
           leading: null,
-          // actions: [
-          //   IconButton(
-          //     onPressed: null,
-          //     icon: Icon(Icons.settings),
-          //     color: Colors.white,
-          //   )
-          // ],
           automaticallyImplyLeading: false),
       body: GestureDetector(
         onTap: () {
@@ -46,13 +69,14 @@ class _profileState extends State<profile> {
         child: Container(
           padding: EdgeInsets.only(left: 15, top: 20, right: 15),
           child: ListView(
+            shrinkWrap: true,
             padding: EdgeInsets.all(15),
             children: [
               Container(
                 alignment: Alignment.center,
                 child: Stack(
                   children: [
-                    (imagePath == 'null')
+                    (users.profileUrl == null)
                         ? Positioned(
                             child: Container(
                               width: 130,
@@ -105,12 +129,16 @@ class _profileState extends State<profile> {
                         ),
                         onPressed: () async {
                           final ImagePicker _picker = ImagePicker();
-                          final XFile? image = await _picker.pickImage(
+                          final XFile image = await _picker.pickImage(
                               source: ImageSource.gallery);
-                          selectedImage = File(image!.path);
+                          selectedImage = File(image.path);
                           imagePath = await DatabaseServices.uploadProfile(
-                              selectedImage);
-                          setState(() {});
+                              selectedImage, users.uid);
+                          setState(() {
+                            users.profileUrl = imagePath;
+                            imagePath = imagePath;
+                            imageUrlC = imagePath;
+                          });
                         },
                         child: Icon(
                           Icons.add_a_photo,
@@ -138,6 +166,7 @@ class _profileState extends State<profile> {
                   border: Border.all(color: darkchoco),
                 ),
                 child: TextField(
+                  controller: babyName,
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                     prefixIcon: Icon(Icons.person,
@@ -179,7 +208,7 @@ class _profileState extends State<profile> {
                   ),
                   readOnly: true,
                   onTap: () async {
-                    DateTime? newDate = await showDatePicker(
+                    DateTime newDate = await showDatePicker(
                         context: context,
                         initialDate: DateTime.now(),
                         firstDate: DateTime(1900),
@@ -222,7 +251,24 @@ class _profileState extends State<profile> {
                           fontSize: 18),
                     )),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    usersProvider
+                        .editUser(
+                      users.id,
+                      users.uid,
+                      babyName.text,
+                      date.text,
+                      imageUrlC,
+                    )
+                        .then((value) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Berhasil diubah"),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                    });
+                  },
                 ),
                 color: darkchoco,
                 borderRadius: BorderRadius.all(Radius.circular(50)),
@@ -233,8 +279,11 @@ class _profileState extends State<profile> {
       ),
       floatingActionButton: Material(
         child: InkWell(
-          onTap: () {},
-          borderRadius: BorderRadius.all(Radius.circular(50)),
+          onTap: () {
+            Provider.of<Users>(context, listen: false).logout();
+            menu.navbottom = false;
+          },
+          borderRadius: BorderRadius.all(Radius.circular(10)),
           splashColor: Colors.white,
           child: Container(
             height: 40.0,

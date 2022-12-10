@@ -1,4 +1,6 @@
 import 'package:bambinut/pages/editfood.dart';
+import 'package:bambinut/pages/menu.dart';
+import 'package:bambinut/pages/profile.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -42,6 +44,7 @@ class _food_detailState extends State<food_detail> {
               color: Color.fromARGB(255, 123, 11, 3)),
           IconButton(
               onPressed: () {
+                menu.navbottom = false;
                 foodsClass.deleteFood(foodsProvider.id).then(
                   (_) {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -51,6 +54,8 @@ class _food_detailState extends State<food_detail> {
                       ),
                     );
                     Navigator.pop(context);
+
+                    // Navigator.of(context).pushNamed(menu.nameRoute);
                   },
                 );
               },

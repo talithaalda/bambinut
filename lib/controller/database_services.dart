@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class DatabaseServices {
-  static Future<String> uploadProfile(File imageFile) async {
+  static Future<String> uploadProfile(File imageFile, String userId) async {
     String filename = basename(imageFile.path);
-    Reference ref = FirebaseStorage.instance.ref('profile.jpg');
+    Reference ref = FirebaseStorage.instance.ref('$userId.jpg');
     UploadTask task = ref.putFile(imageFile);
     TaskSnapshot snapshot = await task;
     return await snapshot.ref.getDownloadURL();

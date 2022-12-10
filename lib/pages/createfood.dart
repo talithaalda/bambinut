@@ -10,7 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:bambinut/pages/menu.dart';
 
-import '../database_services.dart';
+import '../controller/database_services.dart';
 
 class createFood extends StatefulWidget {
   static const nameRoute = '/createfood';
@@ -31,7 +31,7 @@ class _createFoodState extends State<createFood> {
   String foodGrup = '';
   String feedHist = '';
   // String id = json.decode(response.body)["name"].toString();
-  late File selectedImage;
+  File selectedImage;
   String imagePath = 'null';
   final TextEditingController foodnameC = TextEditingController();
   final TextEditingController descC = TextEditingController();
@@ -71,9 +71,9 @@ class _createFoodState extends State<createFood> {
                   ),
                   onPressed: () async {
                     final ImagePicker _picker = ImagePicker();
-                    final XFile? image =
+                    final XFile image =
                         await _picker.pickImage(source: ImageSource.gallery);
-                    selectedImage = File(image!.path);
+                    selectedImage = File(image.path);
                     imagePath = await DatabaseServices.uploadImageFood(
                       selectedImage,
                       getId(),
@@ -124,6 +124,10 @@ class _createFoodState extends State<createFood> {
                     border: Border.all(color: darkchoco)),
                 child: TextFormField(
                   controller: foodnameC,
+                  validator: (val) {
+                    if (val.isEmpty) return 'Empty';
+                    return null;
+                  },
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                     prefixIcon: Icon(Icons.food_bank),
@@ -225,6 +229,10 @@ class _createFoodState extends State<createFood> {
                   ),
                   child: Center(
                     child: TextFormField(
+                      validator: (val) {
+                        if (val.isEmpty) return 'Empty';
+                        return null;
+                      },
                       textAlign: TextAlign.justify,
                       maxLines: 100,
                       controller: descC,
@@ -294,8 +302,11 @@ class _createFoodState extends State<createFood> {
                               duration: Duration(seconds: 2),
                             ),
                           );
+                          print("INI NAVBOTTOM");
+                          print(menu.navbottom);
                           menu.navbottom = false;
                           Navigator.pop(context);
+                          // Navigator.of(context).pushNamed(menu.nameRoute);
                         },
                       );
                     },

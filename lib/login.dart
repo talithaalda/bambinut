@@ -1,13 +1,68 @@
+import 'package:bambinut/pages/home.dart';
+import 'package:bambinut/providers/user.dart';
 import 'package:flutter/material.dart';
 import 'package:bambinut/pages/menu.dart';
 import 'package:bambinut/sign.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
-class loginpage extends StatelessWidget {
-  const loginpage({Key? key}) : super(key: key);
+class loginpage extends StatefulWidget {
+  const loginpage({Key key}) : super(key: key);
   static const nameRoute = '/login';
+
+  @override
+  State<loginpage> createState() => _loginpageState();
+}
+
+class _loginpageState extends State<loginpage> {
+  final TextEditingController emailC = TextEditingController();
+  final TextEditingController passwordC = TextEditingController();
+  String errorMessage = '';
+  final _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
+    final users = Provider.of<Users>(context, listen: false);
+    Duration loginTime = Duration(milliseconds: 2250);
+
+    Future<void> _authUserLogin(String email, String password) {
+      return Future.delayed(loginTime).then((_) async {
+        try {
+          await Provider.of<Users>(context, listen: false)
+              .login(email, password);
+          print("Berhasil login");
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Berhasil login"),
+              duration: Duration(seconds: 2),
+            ),
+          );
+        } catch (err) {
+          print("INI ERROR");
+
+          print(err);
+          errorMessage = err.toString();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(errorMessage),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      });
+    }
+
+    // Future<String> _recoverPassword(String name) {
+    //   print('Name: $name');
+    //   return Future.delayed(loginTime).then((_) {
+    //     if (!users.containsKey(name)) {
+    //       return 'Username not exists';
+    //     }
+    //     return null;
+    //   });
+    // }
+
     return Scaffold(
       body: new GestureDetector(
         onTap: () {
@@ -44,11 +99,12 @@ class loginpage extends StatelessWidget {
                       color: Color.fromARGB(255, 242, 211, 136),
                     ),
                     child: TextField(
+                      controller: emailC,
                       decoration: const InputDecoration(
                         border: InputBorder.none,
                         prefixIcon: Icon(Icons.person,
                             color: Color.fromARGB(255, 116, 116, 116)),
-                        labelText: 'Name',
+                        labelText: 'Email',
                         floatingLabelBehavior: FloatingLabelBehavior.never,
                       ),
                     ),
@@ -62,6 +118,7 @@ class loginpage extends StatelessWidget {
                       color: Color.fromARGB(255, 242, 211, 136),
                     ),
                     child: TextField(
+                      controller: passwordC,
                       obscureText: true,
                       decoration: const InputDecoration(
                         border: InputBorder.none,
@@ -79,17 +136,19 @@ class loginpage extends StatelessWidget {
                         height: 50,
                         width: 20,
                         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: Center(
-                            child: Text(
-                          "Login",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        )),
+                        child: OutlinedButton(
+                          onPressed: () async {
+                            _authUserLogin(emailC.text, passwordC.text);
+                          },
+                          child: Center(
+                              child: Text(
+                            "Login",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          )),
+                        ),
                       ),
-                      onTap: () {
-                        Navigator.of(context).pushNamed(menu.nameRoute);
-                      },
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
                     ),
                     color: Color.fromARGB(255, 135, 76, 98),
                     borderRadius: BorderRadius.all(Radius.circular(50)),

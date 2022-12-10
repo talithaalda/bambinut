@@ -29,16 +29,15 @@ class _dateState extends State<date> {
     final double cellWidth = width / 9;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.of(context)
-            .pushNamed(createmeal.nameRoute);
-          },
-          child: Icon(
-            Icons.add,
-            color: Colors.black,
-          ),
-          backgroundColor: Color.fromARGB(255, 242, 211, 136),
+        onPressed: () {
+          Navigator.of(context).pushNamed(createmeal.nameRoute);
+        },
+        child: Icon(
+          Icons.add,
+          color: Colors.black,
         ),
+        backgroundColor: Color.fromARGB(255, 242, 211, 136),
+      ),
       body: Column(
         children: [
           Container(
@@ -48,53 +47,58 @@ class _dateState extends State<date> {
           Row(
             children: [
               Container(
-                height: cellWidth*2,
+                height: cellWidth * 2,
                 width: cellWidth + 10,
                 color: greentosca,
               ),
               Container(
                   width: cellWidth,
-                  height: cellWidth*2,
+                  height: cellWidth * 2,
                   color: greentosca,
                   child: IconButton(
-                    icon: Icon(Icons.arrow_left,size: 40,),
+                    icon: Icon(
+                      Icons.arrow_left,
+                      size: 40,
+                    ),
                     color: darkchoco,
                     highlightColor: Colors.lightGreen,
                     onPressed: () {
                       setState(() {
-                        _controller.backward!();
+                        _controller.backward();
                       });
                     },
                   )),
               Container(
                 color: greentosca,
-                height: cellWidth*2,
+                height: cellWidth * 2,
                 width: cellWidth * 4.5,
                 child: Center(
                   child: Text(headerString,
                       style: TextStyle(
                           fontSize: 20,
                           color: Color.fromARGB(255, 19, 12, 12),
-                          fontWeight: FontWeight.bold
-                          )),
+                          fontWeight: FontWeight.bold)),
                 ),
               ),
               Container(
                   width: cellWidth,
-                  height: cellWidth*2,
+                  height: cellWidth * 2,
                   color: greentosca,
                   child: IconButton(
-                    icon: Icon(Icons.arrow_right,size: 40,),
+                    icon: Icon(
+                      Icons.arrow_right,
+                      size: 40,
+                    ),
                     color: darkchoco,
                     highlightColor: Colors.lightGreen,
                     onPressed: () {
                       setState(() {
-                        _controller.forward!();
+                        _controller.forward();
                       });
                     },
                   )),
               Container(
-                height: cellWidth*2,
+                height: cellWidth * 2,
                 width: cellWidth + 10,
                 color: greentosca,
               ),
@@ -152,8 +156,8 @@ List<Meeting> _getDataSource() {
   final DateTime endTime = startTime[0].add(const Duration(hours: 2));
   meetings.add(Meeting(
       'Conference', startTime[0], endTime, Color.fromARGB(255, 84, 18, 176)));
-  meetings.add(
-      Meeting('Makan', startTime[1], endTime, Color.fromARGB(255, 134, 15, 67)));
+  meetings.add(Meeting(
+      'Makan', startTime[1], endTime, Color.fromARGB(255, 134, 15, 67)));
 
   return meetings;
 }
@@ -165,25 +169,23 @@ class MeetingDataSource extends CalendarDataSource {
 
   @override
   DateTime getStartTime(int index) {
-    return appointments![index].from;
+    return appointments[index].from;
   }
 
   @override
   DateTime getEndTime(int index) {
-    return appointments![index].to;
+    return appointments[index].to;
   }
 
   @override
   String getSubject(int index) {
-    return appointments![index].eventName;
+    return appointments[index].eventName;
   }
 
   @override
   Color getColor(int index) {
-    return appointments![index].background;
+    return appointments[index].background;
   }
-
- 
 }
 
 class Meeting {

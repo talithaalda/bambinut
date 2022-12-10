@@ -56,7 +56,7 @@ class _createmealState extends State<createmeal> {
                   ),
                   readOnly: true,
                   onTap: () async {
-                    DateTime? newDate = await showDatePicker(
+                    DateTime newDate = await showDatePicker(
                         context: context,
                         initialDate: DateTime.now(),
                         firstDate: DateTime(1900),
@@ -183,26 +183,26 @@ class _createmealState extends State<createmeal> {
             ),
             SizedBox(height: 44),
             Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 80),
-                child: Container(
-                  height: 50,
-                  width: 120,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                    color: darkchoco,
-                  ),
-                  child: Center(
-                      child: Text(
-                    "Save",
-                    style: TextStyle(fontSize: 16, color: Colors.white),
-                  )),
-                ),
-              ),
-              SizedBox(
+              padding: const EdgeInsets.symmetric(horizontal: 80),
+              child: Container(
                 height: 50,
+                width: 120,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                  color: darkchoco,
+                ),
+                child: Center(
+                    child: Text(
+                  "Save",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                )),
               ),
+            ),
+            SizedBox(
+              height: 50,
+            ),
           ],
         ),
       ),

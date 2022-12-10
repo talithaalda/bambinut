@@ -1,3 +1,5 @@
+import 'package:bambinut/providers/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bambinut/pages/createfood.dart';
 import 'package:bambinut/pages/food_detail.dart';
@@ -21,10 +23,12 @@ class _homepageState extends State<homepage> {
 
   @override
   void didChangeDependencies() {
-    if (navbottom == false) {
-      if (isInit) {
-        Provider.of<Foods>(context).initialData();
-      }
+    // print(menu.navbottom);
+    // if (navbottom == false) {
+    if (isInit) {
+      Provider.of<Foods>(context).initialData();
+      Provider.of<Users>(context).initialData();
+      // }
       isInit = false;
       super.didChangeDependencies();
     }
@@ -228,7 +232,7 @@ class foodItem extends StatefulWidget {
   final String title;
   final String image;
 
-  foodItem({required this.title, required this.image});
+  foodItem({this.title, this.image});
 
   @override
   State<foodItem> createState() => _foodItemState();
@@ -274,36 +278,15 @@ class _foodItemState extends State<foodItem> {
                     )),
                 height: 30,
                 width: 110,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                          child: Center(
-                              child: selectedFood == 1
-                                  ? Icon(
-                                      Icons.check,
-                                      size: 10,
-                                      color: Colors.black,
-                                    )
-                                  : null),
-                          height: 13,
-                          width: 13,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                          )),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Text(
-                        widget.title,
-                        style: TextStyle(
-                            fontSize: 12, fontWeight: FontWeight.w700),
-                      )
-                    ],
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      widget.title,
+                      style:
+                          TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
+                    )
+                  ],
                 ),
               ),
             ),

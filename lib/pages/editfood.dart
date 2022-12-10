@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:bambinut/database_services.dart';
+import 'package:bambinut/controller/database_services.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:bambinut/pages/date.dart';
@@ -24,9 +24,9 @@ class _editFoodState extends State<editFood> {
   String foodimageC = '';
   String imagePath = '';
 
-  late TextEditingController foodnameC;
-  late TextEditingController descC;
-  late File selectedImage;
+  TextEditingController foodnameC;
+  TextEditingController descC;
+  File selectedImage;
   @override
   void didChangeDependencies() {
     final foods = Provider.of<Foods>(context, listen: false);
@@ -123,9 +123,9 @@ class _editFoodState extends State<editFood> {
                   ),
                   onPressed: () async {
                     final ImagePicker _picker = ImagePicker();
-                    final XFile? image =
+                    final XFile image =
                         await _picker.pickImage(source: ImageSource.gallery);
-                    selectedImage = File(image!.path);
+                    selectedImage = File(image.path);
                     imagePath = await DatabaseServices.uploadImageFood(
                       selectedImage,
                       foodsProvider.id,
