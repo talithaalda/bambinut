@@ -117,59 +117,73 @@ class _signuppageState extends State<signuppage> {
                       ),
                     ),
                     SizedBox(height: 10),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      height: 60,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                        color: Color.fromARGB(255, 242, 211, 136),
-                      ),
-                      child: TextFormField(
-                        controller: passwordC,
-                        validator: (val) {
-                          if (val.isEmpty) return 'Empty';
-                          return null;
-                        },
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          prefixIcon: Icon(Icons.lock,
-                              color: Color.fromARGB(255, 116, 116, 116)),
-                          labelText: 'Password',
-                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                    Stack(children: [
+                      Container(
+                        // padding: const EdgeInsets.all(10),
+                        height: 60,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                          color: Color.fromARGB(255, 242, 211, 136),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 10),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      height: 60,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                        color: Color.fromARGB(255, 242, 211, 136),
-                      ),
-                      child: TextFormField(
-                        controller: confirmpasswordC,
-                        validator: (val) {
-                          if (val.isEmpty) {
-                            return 'Empty';
-                          }
-                          if (val != passwordC.text) {
-                            return 'Not Match';
-                          } else {
+                      Padding(
+                        padding: const EdgeInsets.all(6),
+                        child: TextFormField(
+                          controller: passwordC,
+                          validator: (val) {
+                            if (val.isEmpty) return 'Empty';
                             return null;
-                          }
-                        },
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          prefixIcon: Icon(Icons.lock,
-                              color: Color.fromARGB(255, 116, 116, 116)),
-                          labelText: 'Re-Type Password',
-                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                          },
+                          obscureText: true,
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.only(bottom: 10),
+                            border: InputBorder.none,
+                            prefixIcon: Icon(
+                              Icons.lock,
+                              color: Color.fromARGB(255, 116, 116, 116),
+                            ),
+                            labelText: 'Password',
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                          ),
                         ),
                       ),
-                    ),
+                    ]),
+                    SizedBox(height: 10),
+                    Stack(children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        height: 60,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                          color: Color.fromARGB(255, 242, 211, 136),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(6),
+                        child: TextFormField(
+                          controller: confirmpasswordC,
+                          validator: (val) {
+                            if (val.isEmpty) {
+                              return 'Empty';
+                            }
+                            if (val != passwordC.text) {
+                              return 'Not Match';
+                            } else {
+                              return null;
+                            }
+                          },
+                          obscureText: true,
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.only(bottom: 10),
+                            border: InputBorder.none,
+                            prefixIcon: Icon(Icons.lock,
+                                color: Color.fromARGB(255, 116, 116, 116)),
+                            labelText: 'Re-Type Password',
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                          ),
+                        ),
+                      ),
+                    ]),
                     SizedBox(height: 20),
                     Material(
                       child: InkWell(
